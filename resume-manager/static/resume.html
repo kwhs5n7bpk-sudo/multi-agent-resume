@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>梁明伟 · AI 产品经理</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f8f9fb;
+      --border: #e8ecf1;
+      --text: #1a1d21;
+      --text-dim: #5f6b7a;
+      --text-light: #8b95a5;
+      --accent: #2b5bf9;
+      --accent-light: #eef2ff;
+      --font: 'Inter', 'Noto Sans SC', -apple-system, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover { color: var(--accent); }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 24px 80px;
+      background: linear-gradient(180deg, #f8f9fb 0%, #ffffff 100%);
+    }
+
+    .hero-photo {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--bg);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      margin-bottom: 28px;
+    }
+
+    .hero-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: var(--accent-light);
+      color: var(--accent);
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .hero-status::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .hero-name {
+      font-size: clamp(40px, 7vw, 64px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .hero-title {
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--text-dim);
+      margin-bottom: 28px;
+    }
+
+    .hero-slogan {
+      font-size: clamp(20px, 3.5vw, 32px);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .hero-subtitle {
+      font-size: 16px;
+      color: var(--text-light);
+      margin-bottom: 40px;
+    }
+
+    .hero-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 56px;
+    }
+
+    .hero-tag {
+      padding: 6px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-dim);
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      width: 100%;
+      max-width: 720px;
+    }
+
+    .hero-stat {
+      background: var(--bg);
+      padding: 28px 20px;
+      text-align: center;
+    }
+
+    .hero-stat-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .hero-stat-label {
+      font-size: 12px;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    /* Section */
+    .section {
+      padding: 80px 24px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      margin-bottom: 48px;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .section-desc {
+      font-size: 15px;
+      color: var(--text-dim);
+      margin-top: 8px;
+    }
+
+    /* Capabilities */
+    .capabilities {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .capability-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 24px;
+      transition: all 0.3s ease;
+    }
+
+    .capability-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 16px rgba(43,91,249,0.08);
+    }
+
+    .capability-number {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--accent-light);
+      margin-bottom: 12px;
+    }
+
+    .capability-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .capability-desc {
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+
+    /* Experience */
+    .experience-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .experience-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+    }
+
+    .experience-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .experience-company {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .experience-role {
+      font-size: 14px;
+      color: var(--accent);
+      margin-top: 4px;
+    }
+
+    .experience-period {
+      font-size: 13px;
+      font-family: 'SF Mono', 'Menlo', monospace;
+      color: var(--text-dim);
+      padding: 4px 10px;
+      background: var(--bg);
+      border-radius: 4px;
+    }
+
+    .experience-section {
+      margin-bottom: 20px;
+    }
+
+    .experience-section:last-child { margin-bottom: 0; }
+
+    .experience-section-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 12px;
+      padding-left: 12px;
+      border-left: 3px solid var(--accent);
+    }
+
+    .experience-highlights {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .experience-highlight {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-dim);
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .experience-highlight::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    /* Projects */
+    .projects-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 16px rgba(43,91,249,0.08);
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .project-type {
+      display: inline-block;
+      padding: 4px 10px;
+      background: var(--accent-light);
+      color: var(--accent);
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .project-period {
+      font-size: 13px;
+      font-family: 'SF Mono', 'Menlo', monospace;
+      color: var(--text-light);
+    }
+
+    .project-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .project-block {
+      margin-bottom: 16px;
+    }
+
+    .project-block:last-child { margin-bottom: 0; }
+
+    .project-block-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .project-block-content {
+      font-size: 14px;
+      color: var(--text-dim);
+      line-height: 1.8;
+      white-space: pre-line;
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .project-tag {
+      padding: 4px 10px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    /* Multi Agent */
+    .multi-agent {
+      background: var(--accent-light);
+      border: 1px solid rgba(43,91,249,0.2);
+      border-radius: 12px;
+      padding: 32px;
+    }
+
+    .multi-agent-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .multi-agent-desc {
+      font-size: 14px;
+      color: var(--text-dim);
+      margin-bottom: 20px;
+    }
+
+    .multi-agent-arch {
+      font-size: 13px;
+      color: var(--text-dim);
+      padding: 12px 16px;
+      background: var(--bg);
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-family: 'SF Mono', 'Menlo', monospace;
+    }
+
+    .challenges-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .challenge-item {
+      background: var(--bg);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .challenge-problem {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .challenge-solution {
+      font-size: 12px;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    /* Timeline */
+    .timeline {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      margin-top: 48px;
+    }
+
+    .timeline-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-dim);
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    .timeline-track {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      padding: 0 16px;
+    }
+
+    .timeline-track::before {
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: 16px;
+      right: 16px;
+      height: 2px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .timeline-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--bg);
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      margin: 0 auto 10px;
+      transition: all 0.3s;
+    }
+
+    .timeline-item:hover .timeline-dot {
+      background: var(--accent);
+      transform: scale(1.3);
+    }
+
+    .timeline-date {
+      font-size: 12px;
+      font-family: 'SF Mono', 'Menlo', monospace;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .timeline-event {
+      font-size: 11px;
+      color: var(--text-dim);
+      max-width: 80px;
+    }
+
+    /* Certificates */
+    .certificates {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 48px;
+    }
+
+    .certificate {
+      padding: 8px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    footer p {
+      font-size: 12px;
+      color: var(--text-light);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-stats { grid-template-columns: repeat(2, 1fr); }
+      .capabilities { grid-template-columns: 1fr; }
+      .experience-item { padding: 24px; }
+      .experience-header { flex-direction: column; gap: 12px; }
+      .project-header { flex-direction: column; gap: 8px; }
+      .challenges-grid { grid-template-columns: 1fr; }
+      .timeline-track { flex-direction: column; gap: 20px; }
+      .timeline-track::before { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-links">
+      <a href="#about" class="nav-link">关于</a>
+      <a href="#capabilities" class="nav-link">能力</a>
+      <a href="#experience" class="nav-link">经历</a>
+      <a href="#projects" class="nav-link">项目</a>
+      <a href="#multi-agent" class="nav-link">AI 系统</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section id="about" class="hero">
+    <img src="/photo.png" alt="梁明伟" class="hero-photo" onerror="this.style.display='none'">
+    <div class="hero-status">OPEN TO WORK</div>
+    <h1 class="hero-name">梁明伟</h1>
+    <p class="hero-title">AI 产品经理 · 3年+产品经验</p>
+    <h2 class="hero-slogan">让 AI 真的在业务里跑起来</h2>
+    <p class="hero-subtitle">而不是停在 demo</p>
+    <div class="hero-tags">
+      <span class="hero-tag">LLM 应用</span>
+      <span class="hero-tag">Agent</span>
+      <span class="hero-tag">RAG</span>
+      <span class="hero-tag">Prompt Engineering</span>
+      <span class="hero-tag">SFT / RLHF</span>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-value">0→1</div>
+        <div class="hero-stat-label">主导学工超级智能体全链路</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">33校</div>
+        <div class="hero-stat-label">华北区学工系统按期交付</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">95%</div>
+        <div class="hero-stat-label">合作院校满意度</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">1.4×</div>
+        <div class="hero-stat-label">核心工作流效率提升</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Capabilities -->
+  <section id="capabilities" class="section">
+    <div class="section-header">
+      <div class="section-label">Core Capabilities</div>
+      <h2 class="section-title">AI 技术能力</h2>
+      <p class="section-desc">从场景挖掘到规模化落地，把 AI 从 demo 变成业务生产力</p>
+    </div>
+    <div class="capabilities">
+      <div class="capability-card">
+        <div class="capability-number">01</div>
+        <h3 class="capability-title">场景挖掘 · 需求结构化</h3>
+        <p class="capability-desc">一线业务调研 + 流程拆解 + 数据复盘。把"用 AI 帮我们"拆成分类/抽取/RAG/生成四类可交付任务。</p>
+      </div>
+      <div class="capability-card">
+        <div class="capability-number">02</div>
+        <h3 class="capability-title">Prompt / SFT / RLHF</h3>
+        <p class="capability-desc">领域数据治理 + 标注规范 + 三层评测（自动指标·人工标注·Case Set）。让每次上线都可衡量地更好。</p>
+      </div>
+      <div class="capability-card">
+        <div class="capability-number">03</div>
+        <h3 class="capability-title">规模化落地 · 能力复用</h3>
+        <p class="capability-desc">协同算法与工程解决时延/成本/稳定性；把一条线沉淀的能力抽到 AI 能力中心，下一条线冷启动跳过 3 个月。</p>
+      </div>
+      <div class="capability-card">
+        <div class="capability-number">04</div>
+        <h3 class="capability-title">RAG 检索链路</h3>
+        <p class="capability-desc">打通学工标准模块与 AI 检索链路，为无系统客户设计"视图对接"数据同步方案。</p>
+      </div>
+      <div class="capability-card">
+        <div class="capability-number">05</div>
+        <h3 class="capability-title">Agent 编排</h3>
+        <p class="capability-desc">主导超级智能体 0→1，设计多角色权限、异步导出、数据权限校验等核心模块。</p>
+      </div>
+      <div class="capability-card">
+        <div class="capability-number">06</div>
+        <h3 class="capability-title">跨部门 SOP</h3>
+        <p class="capability-desc">制定标准化开通流程，协调产研/实施/客户，沉淀可复制的落地方法论。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" class="section">
+    <div class="section-header">
+      <div class="section-label">Experience</div>
+      <h2 class="section-title">工作经历</h2>
+    </div>
+    <div class="experience-list">
+      <div class="experience-item">
+        <div class="experience-header">
+          <div>
+            <div class="experience-company">超星集团</div>
+            <div class="experience-role">AI 项目经理（学工方向）</div>
+          </div>
+          <span class="experience-period">2025.03 – 至今</span>
+        </div>
+        <div class="experience-section">
+          <div class="experience-section-title">2025.09 – 至今 · AI 项目经理</div>
+          <ul class="experience-highlights">
+            <li class="experience-highlight">主导学工超级智能体 AI 产品 0→1 落地与交付，制定跨部门 SOP 与标准化开通流程</li>
+            <li class="experience-highlight">把控一期"新对话"核心模块：数据权限校验、异步导出（任务中心）、多角色权限</li>
+            <li class="experience-highlight">打通学工标准模块与 AI 检索链路（RAG）；为无系统客户设计"视图对接"数据同步方案</li>
+            <li class="experience-highlight">协调产研/实施/客户，完成云端部署与 PC/移动端标准化交付</li>
+          </ul>
+        </div>
+        <div class="experience-section">
+          <div class="experience-section-title">2025.03 – 2025.09 · 华北区项目经理</div>
+          <ul class="experience-highlights">
+            <li class="experience-highlight">负责华北区 33 所高校学工系统交付，节点交付率 100%</li>
+            <li class="experience-highlight">推动 60+ 起故障闭环处理，合作院校满意度 95%；核心工作流效率提升 1.4×</li>
+            <li class="experience-highlight">沉淀标准化实施 SOP，为后续 AI 产品的规模化落地打下客户与场景基础</li>
+          </ul>
+        </div>
+      </div>
+      <div class="experience-item">
+        <div class="experience-header">
+          <div>
+            <div class="experience-company">河南九麦计算机科技有限公司</div>
+            <div class="experience-role">产品经理</div>
+          </div>
+          <span class="experience-period">2022.09 – 2025.02</span>
+        </div>
+        <div class="experience-section">
+          <ul class="experience-highlights">
+            <li class="experience-highlight">全生命周期项目管理：需求 → 设计 → 开发 → 测试 → 上线，按时按质交付</li>
+            <li class="experience-highlight">撰写 PRD、原型、流程图、使用手册、FAQ 全套产品文档</li>
+            <li class="experience-highlight">协调客户/开发/合作方，推动产品落地</li>
+            <li class="experience-highlight">跟踪用户反馈，建立迭代节奏，持续优化产品体验</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="timeline">
+      <div class="timeline-title">时间轴</div>
+      <div class="timeline-track">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2022.09</div>
+          <div class="timeline-event">入职九麦</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2023.12</div>
+          <div class="timeline-event">多产品线并行</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2024.05</div>
+          <div class="timeline-event">智慧水务·AI</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2025.03</div>
+          <div class="timeline-event">入职超星</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2025.09</div>
+          <div class="timeline-event">AI 学工方向</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="section">
+    <div class="section-header">
+      <div class="section-label">Projects</div>
+      <h2 class="section-title">项目经历</h2>
+      <p class="section-desc">每个项目的背景、挑战、解决方案与实际效果</p>
+    </div>
+    <div class="projects-list" id="projects-list"></div>
+  </section>
+
+  <!-- Multi Agent System -->
+  <section id="multi-agent" class="section">
+    <div class="section-header">
+      <div class="section-label">AI System</div>
+      <h2 class="section-title">多 Agent 协作系统</h2>
+      <p class="section-desc">基于 OpenCode/OpenClaw 构建的 AI 驱动软件开发系统</p>
+    </div>
+    <div class="multi-agent" id="multi-agent-content"></div>
+  </section>
+
+  <!-- Certificates -->
+  <section class="section" style="padding-top:0">
+    <div class="section-header">
+      <div class="section-label">Certificates</div>
+      <h2 class="section-title">证书 & 荣誉</h2>
+    </div>
+    <div class="certificates" id="certificates-list"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 梁明伟 · AI 产品经理</p>
+  </footer>
+
+  <script>
+    async function loadData() {
+      const res = await fetch('/api/resume');
+      const data = await res.json();
+      renderProjects(data.projects);
+      renderMultiAgent(data.multiAgent);
+      renderCertificates(data.certificates);
+    }
+
+    function renderProjects(projects) {
+      const html = (projects || []).map(p => `
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-type">${p.type}</span>
+            <span class="project-period">${p.period}</span>
+          </div>
+          <h3 class="project-title">${p.name}</h3>
+          <div class="project-block">
+            <div class="project-block-title">项目背景</div>
+            <div class="project-block-content">${p.background}</div>
+          </div>
+          <div class="project-block">
+            <div class="project-block-title">核心挑战</div>
+            <div class="project-block-content">${p.challenge}</div>
+          </div>
+          <div class="project-block">
+            <div class="project-block-title">解决方案</div>
+            <div class="project-block-content">${p.solution}</div>
+          </div>
+          <div class="project-block">
+            <div class="project-block-title">实现效果</div>
+            <div class="project-block-content">${p.result}</div>
+          </div>
+          <div class="project-tags">
+            ${(p.tags || []).map(t => `<span class="project-tag">${t}</span>`).join('')}
+          </div>
+        </div>
+      `).join('');
+      document.getElementById('projects-list').innerHTML = html;
+    }
+
+    function renderMultiAgent(ma) {
+      if (!ma) return;
+      const html = `
+        <h3 class="multi-agent-title">${ma.title}</h3>
+        <p class="multi-agent-desc">${ma.description}</p>
+        <div class="multi-agent-arch">${ma.architecture}</div>
+        <div class="challenges-grid">
+          ${(ma.challenges || []).map(c => `
+            <div class="challenge-item">
+              <div class="challenge-problem">问题：${c.problem}</div>
+              <div class="challenge-solution">方案：${c.solution}</div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+      document.getElementById('multi-agent-content').innerHTML = html;
+    }
+
+    function renderCertificates(certs) {
+      const html = (certs || []).map(c => `<span class="certificate">${c}</span>`).join('');
+      document.getElementById('certificates-list').innerHTML = html;
+    }
+
+    loadData();
+  </script>
+</body>
+</html>
