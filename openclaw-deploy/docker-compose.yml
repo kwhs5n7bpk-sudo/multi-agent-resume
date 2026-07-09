@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  openclaw:
+    build: .
+    container_name: multi-agent-openclaw
+    ports:
+      - "8080:8080"
+      - "9090:9090"
+    environment:
+      - LLM_API_KEY=${LLM_API_KEY}
+      - LLM_BASE_URL=${LLM_BASE_URL:-https://api.openai.com/v1}
+      - LLM_MODEL=${LLM_MODEL:-glm-5.2}
+      - WECHAT_ADAPTER=${WECHAT_ADAPTER:-wxauto}
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "openclaw", "health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
