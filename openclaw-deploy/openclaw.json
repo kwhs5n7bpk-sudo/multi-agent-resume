@@ -1,0 +1,154 @@
+{
+  "agents": {
+    "defaults": {
+      "skills": ["rag-search", "wiki-query", "code-executor", "file-manager", "web-search"]
+    },
+    "list": [
+      {
+        "id": "lao-k",
+        "name": "老k",
+        "default": true,
+        "workspace": "~/.openclaw/workspace-lao-k",
+        "agentDir": "~/.openclaw/agents/lao-k/agent",
+        "model": "${LLM_MODEL:-glm-5.2}",
+        "identity": { "name": "老k" },
+        "groupChat": {
+          "mentionPatterns": ["@老k", "@lao-k", "@老k助手"]
+        },
+        "skills": ["rag-search", "wiki-query", "code-executor", "file-manager", "web-search"],
+        "tools": {
+          "allow": ["read", "write", "edit", "exec", "glob", "grep", "sessions_list", "sessions_history", "sessions_send", "sessions_spawn"],
+          "deny": ["browser", "canvas"]
+        }
+      },
+      {
+        "id": "product",
+        "name": "产品PM",
+        "workspace": "~/.openclaw/workspace-product",
+        "agentDir": "~/.openclaw/agents/product/agent",
+        "model": "${LLM_MODEL:-glm-5.2}",
+        "identity": { "name": "产品PM" },
+        "skills": ["rag-search", "web-search", "file-manager"],
+        "tools": {
+          "allow": ["read", "write", "glob", "grep"],
+          "deny": ["exec", "edit", "browser", "canvas"]
+        }
+      },
+      {
+        "id": "ui",
+        "name": "UI设计师",
+        "workspace": "~/.openclaw/workspace-ui",
+        "agentDir": "~/.openclaw/agents/ui/agent",
+        "model": "${LLM_MODEL:-glm-5.2}",
+        "identity": { "name": "UI设计师" },
+        "skills": ["rag-search", "file-manager"],
+        "tools": {
+          "allow": ["read", "write", "glob", "grep"],
+          "deny": ["exec", "edit", "browser", "canvas"]
+        }
+      },
+      {
+        "id": "frontend",
+        "name": "前端工程师",
+        "workspace": "~/.openclaw/workspace-frontend",
+        "agentDir": "~/.openclaw/agents/frontend/agent",
+        "model": "${LLM_MODEL:-glm-5.2}",
+        "identity": { "name": "前端工程师" },
+        "skills": ["code-executor", "file-manager", "rag-search"],
+        "tools": {
+          "allow": ["read", "write", "edit", "exec", "glob", "grep"],
+          "deny": ["browser", "canvas"]
+        }
+      },
+      {
+        "id": "backend",
+        "name": "后端工程师",
+        "workspace": "~/.openclaw/workspace-backend",
+        "agentDir": "~/.openclaw/agents/backend/agent",
+        "model": "${LLM_MODEL:-glm-5.2}",
+        "identity": { "name": "后端工程师" },
+        "skills": ["code-executor", "file-manager", "rag-search"],
+        "tools": {
+          "allow": ["read", "write", "edit", "exec", "glob", "grep"],
+          "deny": ["browser", "canvas"]
+        }
+      },
+      {
+        "id": "tester",
+        "name": "测试工程师",
+        "workspace": "~/.openclaw/workspace-tester",
+        "agentDir": "~/.openclaw/agents/tester/agent",
+        "model": "${LLM_MODEL:-glm-5.2}",
+        "identity": { "name": "测试工程师" },
+        "skills": ["code-executor", "file-manager", "rag-search"],
+        "tools": {
+          "allow": ["read", "write", "edit", "exec", "glob", "grep"],
+          "deny": ["browser", "canvas"]
+        }
+      },
+      {
+        "id": "ops",
+        "name": "运维工程师",
+        "workspace": "~/.openclaw/workspace-ops",
+        "agentDir": "~/.openclaw/agents/ops/agent",
+        "model": "${LLM_MODEL:-glm-5.2}",
+        "identity": { "name": "运维工程师" },
+        "skills": ["code-executor", "file-manager", "rag-search"],
+        "tools": {
+          "allow": ["read", "write", "edit", "exec", "glob", "grep"],
+          "deny": ["browser", "canvas"]
+        }
+      }
+    ]
+  },
+
+  "bindings": [
+    {
+      "agentId": "lao-k",
+      "match": { "channel": "whatsapp", "accountId": "*" }
+    },
+    {
+      "agentId": "lao-k",
+      "match": { "channel": "telegram", "accountId": "*" }
+    },
+    {
+      "agentId": "lao-k",
+      "match": { "channel": "discord", "accountId": "*" }
+    },
+    {
+      "agentId": "lao-k",
+      "match": { "channel": "webchat", "accountId": "*" }
+    }
+  ],
+
+  "channels": {
+    "whatsapp": {
+      "enabled": true,
+      "dmPolicy": "pairing",
+      "groupPolicy": "allowlist"
+    },
+    "telegram": {
+      "enabled": true,
+      "dmPolicy": "pairing"
+    },
+    "discord": {
+      "enabled": true,
+      "groupPolicy": "allowlist"
+    },
+    "webchat": {
+      "enabled": true,
+      "port": 8080
+    }
+  },
+
+  "memory": {
+    "backend": "qmd"
+  },
+
+  "tools": {
+    "agentToAgent": {
+      "enabled": true,
+      "allow": ["lao-k", "product", "ui", "frontend", "backend", "tester", "ops"]
+    }
+  }
+}
